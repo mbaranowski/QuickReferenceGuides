@@ -210,14 +210,50 @@ objective-c
 int main(int argc, char *argv[])
 {
    @autoreleasepool {
+   	 // creates a UIApplication object and connects it to UIApplicationDelegate implementations
+   	 // calls applicationdidFinishLaunchingWithOptions on the delegate
+   	 // (after main nib or storyboard has been loaded, if used)
      return UIApplicationMain(argc, argv, nil, @”AppDelegate”);
    }
 }
 ```
 
-### UIApplicationDelegate implementation
+### [UIApplicationDelegate](http://developer.apple.com/library/ios/#DOCUMENTATION/UIKit/Reference/UIApplicationDelegate_Protocol/Reference/Reference.	html) implementation
 
-#### UIViewController subclass
+A delegate used by UIApplication, used to configure how the app responds to 
+
+In AppDelegate.h
+
+```
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    UIWindow* window;
+    MainViewController* mainViewController;
+}
+@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) MainViewController * mainViewController;
+@end
+```
+
+In AppDelegate.m
+
+```
+@synthesize window;
+@synthesize mainViewController;
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	mainViewController = [[MainViewController alloc] init];
+		
+	[window addSubview:mainViewController.view];
+	[window makeKeyAndVisible];
+	return YES;
+}
+
+```
+
+### UIViewController subclass
 
 
 ## CoreData

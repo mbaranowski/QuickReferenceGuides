@@ -1,4 +1,8 @@
 QuickReferenceGuides
 ====================
 
-Collection of quick reference guides
+This is my collection of quick reference guides. These days its not enough to be an expert at a particular language or a technology stack, instead there are dozens of different technology stacks you have to be competent in to get any work done. I started writing these down when I realized that for a particular project I will be knee deep in iOS and Objective-C development for six months and then have to return to C++ & STL or C# and .NET development.  Then there is Ruby & Ruby-on-Rails, Linux servers and Amazon AWS, Java and Android and many others that I might have to pick up at a moments notice. 
+
+These guides are meant to be a solution to getting up to speed quickly on a technology I already learned. These are not meant to be tutorials, but rather succinct, efficient, information-dense guides. I'm hoping to use these documents as external storage of technical knowledge that can be reloaded into my electro-chemical memory banks (my brain) when necesary. These will be a collection of recipies, code snippets, and links to more in depth reference. In addition, authoring these guides really helps to organize what I already know and cements my understanding. 
+
+These are by no means complete and are growing daily. Currently I only managed to write down the basics of Objective-C and iOS development (since that's what I'm working on right now.).
