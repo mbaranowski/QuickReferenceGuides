@@ -17,9 +17,9 @@ in header file MyClass.h
 {
 	id			data;                // id used for weak typing
 	NSString*	name;                // strong typing, uses pointers
-	BOOL        isHidden;
-	int                 value;
-	float                count;
+	BOOL		isHidden;
+	int			value;
+	float		count;
 }
 
 // accessors, can be accessed with myClassInstance.value = 5
@@ -124,14 +124,14 @@ NSString *fromCString = [NSString stringWithCString:"A C string" encoding:NSASCI
 
 ## []() Arrays
 
-[NSArray]()  is an immutable array. Objects stored using a weakly typed handle, id.
+[NSArray]()  is an immutable array. Objects stored using a weakly typed handle, id. Details about new [objective-c literal syntax in Xcode 4.4](http://clang.llvm.org/docs/ObjectiveCLiterals.html).
 
 ```
 NSArray* array = [NSArray arrayWithObjects:@”one”, @”two”];
 if ([array count] > 0)
 	NSLog(@”first object %@”, [array objectAtIndex:0]);
 
-// new[objective-c literal syntax in Xcode 4.4](http://clang.llvm.org/docs/ObjectiveCLiterals.html) 
+// new objective-c literal syntax in Xcode 4.4 
 NSArray* array = @[ @”one”, @”two”, @”three” ];
 
 // works if building for iOS6
@@ -253,8 +253,67 @@ In AppDelegate.m
 
 ```
 
-### UIViewController subclass
 
+### UIViewController References
+
+  * [View Controller Programming Guide for iOS](http://developer.apple.com/library/ios/#featuredarticles/ViewControllerPGforiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007457)
+  * [View Controller Catalog for iOS](http://developer.apple.com/library/ios/#documentation/WindowsViews/Conceptual/ViewControllerCatalog/Introduction.html#//apple_ref/doc/uid/TP40011313)
+
+---
+### [UITableViewController](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewController_Class/Reference/Reference.html#//apple_ref/occ/cl/UITableViewController)
+
+Used to display and edit a list of information grouped into sections and displayed as cells ([UITableViewCells](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewCell_Class/Reference/Reference.html#//apple_ref/occ/cl/UITableViewCell)).
+
+implements [UITableViewDataSource](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewDataSource_Protocol/Reference/Reference.html#//apple_ref/occ/intf/UITableViewDataSource) to provie information about the table sections and cells.
+
+* numberOfSectionsInTableView
+* tableView:numberOfRowsInSection:
+* tableView:cellForRowAtIndexPath:
+
+implements [UITableViewDelegate](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewDelegate_Protocol/Reference/Reference.html#//apple_ref/occ/intf/UITableViewDelegate) to recieve cell selection, tap notification as well as to configure appearance and editing behavior.
+
+  * tableView:accessoryButtonTappedForRowWithIndexPath:
+  * tableView:didSelectRowAtIndexPath:
+---
+
+### [UINavigationController](http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UINavigationController_Class/Reference/Reference.html#//apple_ref/occ/cl/UINavigationController)
+
+Acts like a stack of View controllers that are useful to navigate a hierarchy of content. 
+
+To create: 
+
+```
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{
+	// create custom controller visible inside the UINavigationController, for example a UITableViewController
+    UIViewController *myViewController = [[MyViewController alloc] init];
+    navigationController = [[UINavigationController alloc] initWithRootViewController:myViewController];
+    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    window.rootViewController = navigationController;
+    [window makeKeyAndVisible];
+}
+```
+
+To controls and navigate:
+
+  * [pushViewController:animated:](http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UINavigationController_Class/Reference/Reference.html#//apple_ref/occ/instm/UINavigationController/pushViewController:animated:) - Pushes a view controller onto the receiver’s stack and updates the display
+  * [popViewControllerAnimated:](http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UINavigationController_Class/Reference/Reference.html#//apple_ref/occ/instm/UINavigationController/popViewControllerAnimated:) - Pops the top view controller from the navigation stack and updates the display. Usually handled by the Back button.
+  * [setViewControllers:animated:](http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UINavigationController_Class/Reference/Reference.html#//apple_ref/occ/instm/UINavigationController/setViewControllers:animated:) Replaces the view controllers currently managed by the navigation controller with the specified items. Used to restore navigation state to a saved one.
+
+Components to modify:
+
+  * navigationBar - [UINavigationBar](http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UINavigationBar_Class/Reference/UINavigationBar.html#//apple_ref/doc/c_ref/UINavigationBar)  on top of screen holds navigation buttons and title.
+    * backBarButtonItem 
+    * leftBarButtonItem
+    * titleView
+    * rightBarButtonItem
+  * toolbar - UIToolbar, 
+
+---
+  
+### UITabBarController
+### UISplitViewController 
+### UIPopoverController
 
 ## CoreData
 
@@ -262,5 +321,7 @@ In AppDelegate.m
 
 ## Tools
 
- * [http://cocoapods.org](http://cocoapods.org/)  - manages library dependencies for objective-c projects
+ * [cocoapods.org](http://cocoapods.org/)  - manages library dependencies for objective-c projects
+ * [Nimbus](http://docs.nimbuskit.info/index.html)
+ * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 
