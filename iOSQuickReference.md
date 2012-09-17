@@ -191,6 +191,12 @@ Key-value coding is a mechanism for accessing an object’s properties indirectl
 
 **dictionaryWithValuesForKeys:** retrieves the values for an array of keys relative to the receiver. The returned NSDictionary contains values for all the keys in the array.
 
+## Automatic Reference Counting (ARC)
+
+  * Do not call retain/release/autorelease (do not implement these)
+  * No Object pointers in C-Structs. Use Objective-C classes
+  * No casting between id and void*
+  * Do not use NSAutorelease pool. Use @autorelease { } instead.
 
 # iOS SDK
 
@@ -259,6 +265,14 @@ In AppDelegate.m
   * [View Controller Programming Guide for iOS](http://developer.apple.com/library/ios/#featuredarticles/ViewControllerPGforiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007457)
   * [View Controller Catalog for iOS](http://developer.apple.com/library/ios/#documentation/WindowsViews/Conceptual/ViewControllerCatalog/Introduction.html#//apple_ref/doc/uid/TP40011313)
 
+  * loadView - override to programatically initialize a view
+
+```
+- (void)loadView {
+	self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+```
+
+
 ---
 ### [UITableViewController](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewController_Class/Reference/Reference.html#//apple_ref/occ/cl/UITableViewController)
 
@@ -314,10 +328,62 @@ Components to modify:
 ### UITabBarController
 ### UISplitViewController 
 ### UIPopoverController
+### Nibless Controls
+
+For UIButton
+
+```
+    CGSize  size = [title sizeWithFont:font];
+    UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0,0,size.width+24, size.height+16)];
+    button.titleLabel.font = font;
+    [button setTitleColor:[UIColor greenColor] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];     
+    [button setTitle:title forState:UIControlStateNormal];
+    [button addTarget:self
+               action:@selector(eventHandlerMethod:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+```
+
+For UILabel
+
+```
+    CGSize  size = [title sizeWithFont:font];
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = logoFont;
+    label.textColor = [UIColor whiteColor];
+    label.text = title;
+    label.center = CGPointMake(frame.size.height/2, frame.size.height/2);
+    [self.view addSubview:label];
+```
+
 
 ## CoreData
+### Reference
+
+  * [Open GL Guide](http://developer.apple.com/library/ios/#documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/Introduction/Introduction.html)
+
+### CoreGraphics
+
+```
+    UIGraphicsBeginImageContext(size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // use CGContext commands to draw stuff, ex. draw a circle
+    CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
+    CGContextFillEllipseInRect(context, CGRectMake(0,0,size.width,size.height));
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+``` 
 
 ## OpenGL
+
+## Game Center
+
+
 
 ## Tools
 
