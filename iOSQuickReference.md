@@ -198,6 +198,31 @@ Key-value coding is a mechanism for accessing an object’s properties indirectl
   * No casting between id and void*
   * Do not use NSAutorelease pool. Use @autorelease { } instead.
 
+## Singletons
+
+```
++ (SingletonClass *)sharedInstance
+{
+    static dispatch_once_t pred;
+    static SingletonClass *sharedInstance = nil;
+    
+    dispatch_once(&pred, ^{
+        sharedInstance = [[SingletonClass alloc] init];
+        // .. any initialization
+    });
+    
+    return sharedInstance;
+}
+```
+## private methods
+
+Idiom to implement private methods for SomeClass, in SomeClass.m
+
+```
+@interface SomeClass (PrivateMethods) <SomeDelegate>
+- (void)someDelegateMethod:(id)param;
+@end
+```
 # iOS SDK
 
 ## References
@@ -391,3 +416,5 @@ For UILabel
  * [Nimbus](http://docs.nimbuskit.info/index.html)
  * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 
+http://www.reddit.com/r/iosprogramming
+http://www.reddit.com/r/iphonedev
