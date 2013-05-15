@@ -53,6 +53,7 @@ in header file MyClass.h
 
 ## Class implementation
 
+(Changes all over the place!)
 in source file MyClass.m
 
 
